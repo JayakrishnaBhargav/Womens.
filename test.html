@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Skill Test - Video Recording</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+padding:40px;
+}
+
+h1{
+margin-bottom:20px;
+}
+
+video{
+width:500px;
+border-radius:10px;
+border:3px solid #6366f1;
+margin-top:20px;
+}
+
+button{
+padding:12px 25px;
+margin:10px;
+border:none;
+border-radius:6px;
+background:#6366f1;
+color:white;
+cursor:pointer;
+font-size:16px;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Practical Skill Test</h1>
+
+<p>Record your practical demonstration.</p>
+
+<h3>Camera Preview</h3>
+
+<video id="preview" autoplay muted></video>
+
+<br>
+
+<button onclick="startRecording()">Start Recording</button>
+<button onclick="stopRecording()">Stop Recording</button>
+
+<h3>Recorded Video</h3>
+
+<video id="recorded" controls></video>
+
+<script>
+
+let cameraStream
+let mediaRecorder
+let recordedChunks=[]
+
+
+// START CAMERA AUTOMATICALLY
+
+async function startCamera(){
+
+try{
+
+cameraStream = await navigator.mediaDevices.getUserMedia({
+video:true,
+audio:true
+})
+
+document.getElementById("preview").srcObject=cameraStream
+
+}catch(error){
+
+alert("Camera permission denied or not available")
+
+}
+
+}
+
+startCamera()
+
+
+// START RECORDING
+
+function startRecording(){
+
+recordedChunks=[]
+
+mediaRecorder=new MediaRecorder(cameraStream)
+
+mediaRecorder.ondataavailable=function(e){
+
+recordedChunks.push(e.data)
+
+}
+
+mediaRecorder.onstop=function(){
+
+let blob=new Blob(recordedChunks,{type:"video/webm"})
+
+let videoURL=URL.createObjectURL(blob)
+
+document.getElementById("recorded").src=videoURL
+
+}
+
+mediaRecorder.start()
+
+}
+
+
+// STOP RECORDING
+
+function stopRecording(){
+
+mediaRecorder.stop()
+
+}
+
+</script>
+
+</body>
+
+</html>

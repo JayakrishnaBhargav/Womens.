@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EmpowerHer Sign Up</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+body{
+
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:linear-gradient(135deg,#020617,#0f172a,#1e1b4b);
+
+color:white;
+
+}
+
+.signup-container{
+
+width:420px;
+
+background:rgba(255,255,255,0.05);
+
+padding:40px;
+
+border-radius:20px;
+
+backdrop-filter:blur(15px);
+
+box-shadow:0 0 30px rgba(0,0,0,0.6);
+
+animation:fade 1.5s;
+
+}
+
+h1{
+
+text-align:center;
+
+color:#a855f7;
+
+margin-bottom:10px;
+
+}
+
+.subtitle{
+
+text-align:center;
+
+color:#ccc;
+
+margin-bottom:25px;
+
+}
+
+.google-btn{
+
+width:100%;
+
+padding:12px;
+
+border:none;
+
+border-radius:8px;
+
+background:white;
+
+color:black;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:10px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+transition:0.3s;
+
+}
+
+.google-btn:hover{
+
+transform:scale(1.05);
+
+}
+
+.divider{
+
+margin:20px 0;
+
+text-align:center;
+
+color:#aaa;
+
+position:relative;
+
+}
+
+.divider::before,
+.divider::after{
+
+content:"";
+
+position:absolute;
+
+top:50%;
+
+width:40%;
+
+height:1px;
+
+background:#555;
+
+}
+
+.divider::before{left:0;}
+
+.divider::after{right:0;}
+
+input{
+
+width:100%;
+
+padding:12px;
+
+margin:10px 0;
+
+border:none;
+
+border-radius:8px;
+
+background:#020617;
+
+color:white;
+
+}
+
+button.signup{
+
+width:100%;
+
+padding:12px;
+
+border:none;
+
+border-radius:8px;
+
+background:linear-gradient(45deg,#6366f1,#a855f7);
+
+color:white;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:0.3s;
+
+}
+
+button.signup:hover{
+
+transform:scale(1.05);
+
+box-shadow:0 0 15px #a855f7;
+
+}
+
+.password-strength{
+
+font-size:12px;
+
+margin-bottom:10px;
+
+}
+
+.login-link{
+
+margin-top:15px;
+
+text-align:center;
+
+font-size:14px;
+
+}
+
+.login-link a{
+
+color:#a855f7;
+
+text-decoration:none;
+
+}
+
+.toggle-pass{
+
+position:absolute;
+
+right:20px;
+
+margin-top:-38px;
+
+cursor:pointer;
+
+font-size:14px;
+
+color:#ccc;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="signup-container">
+
+<h1>EmpowerHer</h1>
+
+<p class="subtitle">Create Your Account</p>
+
+<button class="google-btn">
+
+<img src="https://img.icons8.com/color/48/google-logo.png" width="20">
+
+Sign up with Google
+
+</button>
+
+<div class="divider">OR</div>
+
+<form id="signupForm">
+
+<input type="text" placeholder="Full Name" required>
+
+<input type="text" placeholder="Username" required>
+
+<input type="email" placeholder="Email" required>
+
+<input type="tel" placeholder="Phone Number" required>
+
+<div style="position:relative">
+
+<input type="password" id="password" placeholder="Password" required>
+
+<span class="toggle-pass" onclick="togglePassword()">Show</span>
+
+</div>
+
+<div class="password-strength" id="strengthText"></div>
+
+<button class="signup">Create Account</button>
+
+</form>
+
+<p class="login-link">
+
+Already have an account?
+
+<a href="login.html">Login</a>
+
+</p>
+
+</div>
+
+<script>
+
+const password=document.getElementById("password");
+const strengthText=document.getElementById("strengthText");
+
+password.addEventListener("input",function(){
+
+let val=password.value;
+
+if(val.length<6){
+
+strengthText.innerText="Weak password";
+strengthText.style.color="red";
+
+}
+
+else if(val.length<10){
+
+strengthText.innerText="Medium password";
+strengthText.style.color="orange";
+
+}
+
+else{
+
+strengthText.innerText="Strong password";
+strengthText.style.color="lightgreen";
+
+}
+
+});
+
+function togglePassword(){
+
+if(password.type==="password"){
+
+password.type="text";
+
+}
+
+else{
+
+password.type="password";
+
+}
+
+}
+
+document.getElementById("signupForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+alert("Account Created Successfully!");
+
+});
+
+</script>
+
+</body>
+</html>

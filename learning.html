@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gender Equality Resource Hub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+font-family:'Poppins',sans-serif;
+margin:0;
+background:#0f172a;
+color:white;
+}
+
+.hero{
+text-align:center;
+padding:60px;
+background:linear-gradient(135deg,#1e3a8a,#7c3aed);
+}
+
+.hero h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.hero p{
+opacity:0.9;
+}
+
+.search-container{
+margin-top:20px;
+}
+
+.search-container input{
+padding:12px;
+width:300px;
+border:none;
+border-radius:6px;
+}
+
+.search-container button{
+padding:12px 20px;
+border:none;
+background:#111827;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+.tabs{
+display:flex;
+justify-content:center;
+gap:10px;
+padding:20px;
+background:#020617;
+}
+
+.tab{
+padding:10px 20px;
+border:none;
+background:#1f2937;
+color:white;
+cursor:pointer;
+border-radius:6px;
+}
+
+.tab.active{
+background:#7c3aed;
+}
+
+.results{
+padding:40px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#111827;
+padding:20px;
+border-radius:10px;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 0 15px #7c3aed;
+}
+
+iframe{
+width:100%;
+border-radius:8px;
+}
+
+a{
+color:#a78bfa;
+text-decoration:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="hero">
+
+<h1>Gender Equality Resource Hub</h1>
+
+<p>Search resources, research, NGOs, videos and data about gender equality</p>
+
+<div class="search-container">
+
+<input id="searchInput" placeholder="Search gender equality resources, stats, videos...">
+
+<button onclick="startSearch()">Search</button>
+
+</div>
+
+</header>
+
+
+<section class="tabs">
+
+<button onclick="showTab('youtube')" class="tab active">YouTube</button>
+<button onclick="showTab('wiki')" class="tab">Wikipedia</button>
+<button onclick="showTab('web')" class="tab">Web</button>
+<button onclick="showTab('maps')" class="tab">Maps</button>
+<button onclick="showTab('images')" class="tab">Images</button>
+
+</section>
+
+
+<section class="results" id="results">
+
+<p>Search something to see results...</p>
+
+</section>
+
+
+<script>
+
+let currentTab="youtube"
+
+function showTab(tab){
+
+currentTab=tab
+
+document.querySelectorAll(".tab").forEach(btn=>btn.classList.remove("active"))
+
+event.target.classList.add("active")
+
+}
+
+function startSearch(){
+
+let query=document.getElementById("searchInput").value
+
+if(query==="") return
+
+if(currentTab==="youtube") searchYouTube(query)
+
+if(currentTab==="wiki") searchWiki(query)
+
+if(currentTab==="web") searchWeb(query)
+
+if(currentTab==="maps") searchMaps(query)
+
+if(currentTab==="images") searchImages(query)
+
+}
+
+
+function searchYouTube(q){
+
+let html=""
+
+for(let i=0;i<6;i++){
+
+html+=`
+<div class="card">
+<iframe height="200"
+src="https://www.youtube.com/embed?listType=search&list=${q}">
+</iframe>
+</div>
+`
+
+}
+
+document.getElementById("results").innerHTML=html
+
+}
+
+
+function searchWiki(q){
+
+fetch("https://en.wikipedia.org/api/rest_v1/page/summary/"+q)
+
+.then(res=>res.json())
+
+.then(data=>{
+
+document.getElementById("results").innerHTML=`
+
+<div class="card">
+<h3>${data.title}</h3>
+<p>${data.extract}</p>
+<a href="${data.content_urls.desktop.page}" target="_blank">Read More</a>
+</div>
+
+`
+
+})
+
+}
+
+
+function searchWeb(q){
+
+let html=`
+
+<div class="card">
+<h3>Google Search Results</h3>
+<p>Click below to search the web</p>
+<a href="https://www.google.com/search?q=${q}" target="_blank">Open Google Search</a>
+</div>
+
+`
+
+document.getElementById("results").innerHTML=html
+
+}
+
+
+function searchMaps(q){
+
+let html=`
+
+<div class="card">
+<iframe height="300"
+src="https://www.google.com/maps?q=${q}&output=embed">
+</iframe>
+</div>
+
+`
+
+document.getElementById("results").innerHTML=html
+
+}
+
+
+function searchImages(q){
+
+let html=""
+
+for(let i=0;i<6;i++){
+
+html+=`
+
+<div class="card">
+<img src="https://source.unsplash.com/400x300/?${q}" width="100%">
+</div>
+
+`
+
+}
+
+document.getElementById("results").innerHTML=html
+
+}
+
+</script>
+
+</body>
+</html>

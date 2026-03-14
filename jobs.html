@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Jobs - EmpowerHer</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:linear-gradient(135deg,#020617,#0f172a,#1e1b4b);
+color:white;
+min-height:100vh;
+}
+
+/* NAVBAR */
+
+header{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:20px 60px;
+
+background:#020617;
+
+}
+
+.logo{
+
+font-size:24px;
+font-weight:bold;
+color:#a855f7;
+
+}
+
+nav a{
+
+margin-left:25px;
+text-decoration:none;
+color:white;
+font-size:18px;
+transition:0.3s;
+
+}
+
+nav a:hover{
+
+color:#a855f7;
+transform:scale(1.1);
+
+}
+
+/* HERO */
+
+.hero{
+
+text-align:center;
+padding:70px;
+
+}
+
+.hero h1{
+
+font-size:45px;
+margin-bottom:20px;
+
+}
+
+.hero p{
+
+font-size:20px;
+color:#cbd5f5;
+
+}
+
+/* SEARCH */
+
+.search-box{
+
+text-align:center;
+margin-bottom:40px;
+
+}
+
+.search-box input{
+
+padding:12px;
+width:300px;
+border-radius:8px;
+border:none;
+
+}
+
+/* JOB CARDS */
+
+.jobs{
+
+padding:40px;
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+gap:30px;
+
+}
+
+.job-card{
+
+background:#111827;
+
+padding:25px;
+
+border-radius:12px;
+
+transition:0.3s;
+
+}
+
+.job-card:hover{
+
+transform:translateY(-10px);
+
+box-shadow:0 0 20px #6366f1;
+
+}
+
+.job-card h3{
+
+color:#a855f7;
+margin-bottom:10px;
+
+}
+
+.job-card p{
+
+margin-bottom:15px;
+
+}
+
+button{
+
+padding:10px 20px;
+
+border:none;
+
+border-radius:6px;
+
+background:#6366f1;
+
+color:white;
+
+cursor:pointer;
+
+}
+
+button:hover{
+
+transform:scale(1.05);
+
+}
+
+/* FOOTER */
+
+footer{
+
+text-align:center;
+
+padding:25px;
+
+margin-top:60px;
+
+background:#020617;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<header>
+
+<div class="logo">EmpowerHer</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="learning.html">Learning</a>
+<a href="test.html">Skill Test</a>
+<a href="leadership.html">Leadership</a>
+<a href="sos.html">SOS</a>
+
+</nav>
+
+</header>
+
+
+<section class="hero">
+
+<h1>Find Opportunities</h1>
+
+<p>Explore job opportunities and build your career.</p>
+
+</section>
+
+
+<div class="search-box">
+
+<input type="text" id="search" placeholder="Search jobs..." onkeyup="searchJobs()">
+
+</div>
+
+
+<section class="jobs" id="jobList">
+
+<div class="job-card">
+
+<h3>Web Developer</h3>
+
+<p>Company: TechNova</p>
+
+<p>Location: Remote</p>
+
+<button onclick="applyJob('Web Developer')">Apply</button>
+
+</div>
+
+<div class="job-card">
+
+<h3>Graphic Designer</h3>
+
+<p>Company: CreativeHub</p>
+
+<p>Location: Hyderabad</p>
+
+<button onclick="applyJob('Graphic Designer')">Apply</button>
+
+</div>
+
+<div class="job-card">
+
+<h3>Content Writer</h3>
+
+<p>Company: MediaSpark</p>
+
+<p>Location: Remote</p>
+
+<button onclick="applyJob('Content Writer')">Apply</button>
+
+</div>
+
+<div class="job-card">
+
+<h3>Digital Marketer</h3>
+
+<p>Company: GrowthLab</p>
+
+<p>Location: Bangalore</p>
+
+<button onclick="applyJob('Digital Marketer')">Apply</button>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<p>EmpowerHer Career Platform</p>
+
+</footer>
+
+
+<script>
+
+/* APPLY BUTTON */
+
+function applyJob(job){
+
+alert("You applied for " + job)
+
+}
+
+
+/* SEARCH FUNCTION */
+
+function searchJobs(){
+
+let input=document.getElementById("search").value.toLowerCase()
+
+let jobs=document.getElementsByClassName("job-card")
+
+for(let i=0;i<jobs.length;i++){
+
+let title=jobs[i].innerText.toLowerCase()
+
+if(title.includes(input)){
+
+jobs[i].style.display="block"
+
+}else{
+
+jobs[i].style.display="none"
+
+}
+
+}
+
+}
+
+</script>
+
+
+</body>
+
+</html>
